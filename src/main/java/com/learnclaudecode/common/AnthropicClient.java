@@ -78,7 +78,9 @@ public class AnthropicClient {
                 .header("anthropic-version", "2023-06-01")
                 .POST(HttpRequest.BodyPublishers.ofString(JsonUtils.toJson(payload)));
 
-        if (!config.getApiKey().isBlank()) {
+        if (!config.getAuthToken().isBlank()) {
+            builder.header("Authorization", "Bearer " + config.getAuthToken());
+        }else if (!config.getApiKey().isBlank()) {
             builder.header("x-api-key", config.getApiKey());
         }
 

@@ -13,6 +13,7 @@ public final class EnvConfig {
     private final Dotenv dotenv;
     private final String modelId;
     private final String apiKey;
+    private final String authToken;
     private final String baseUrl;
     private final Path workdir;
 
@@ -24,6 +25,7 @@ public final class EnvConfig {
         this.dotenv = Dotenv.configure().ignoreIfMissing().load();
         this.modelId = require("MODEL_ID");
         this.apiKey = getenv("ANTHROPIC_API_KEY").orElse("");
+        this.authToken = getenv("ANTHROPIC_AUTH_TOKEN").orElse("");
         this.baseUrl = getenv("ANTHROPIC_BASE_URL").orElse("https://api.anthropic.com");
         this.workdir = Paths.get("").toAbsolutePath().normalize();
     }
@@ -91,5 +93,9 @@ public final class EnvConfig {
      */
     public Path getWorkdir() {
         return workdir;
+    }
+
+    public String getAuthToken() {
+        return authToken;
     }
 }
